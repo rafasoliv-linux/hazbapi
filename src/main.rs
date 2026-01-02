@@ -1,8 +1,6 @@
-// Mods
 mod app;
 mod conn;
 mod routes;
-
 
 #[tokio::main]
 async fn main() {
