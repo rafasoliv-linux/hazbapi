@@ -12,10 +12,10 @@ pub struct AppState {
 
 pub async fn create_pool() -> Result<PgPool, sqlx::Error> {
     dotenv().ok();
-    let DATABASE_URL: String = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    let db_url: String = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     let pool: sqlx::PgPool = PgPoolOptions::new()
         .max_connections(10)
-        .connect(DATABASE_URL.as_str())
+        .connect(db_url.as_str())
         .await?;
     Ok(pool)
 }
