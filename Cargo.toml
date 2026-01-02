@@ -1,0 +1,13 @@
+[package]
+name = "hazbapi"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+axum = { version = "0.8.8", features=["macros"] }
+sqlx = { version = "0.8.6", features = ["postgres", "runtime-tokio-rustls", "macros"] }
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.148"
+dotenv = "0.15"
+
