@@ -1,5 +1,5 @@
 // Eternal imports/USEs
-use axum::{Router, Extension};
+use axum::{Router, Extension, routing::get};
 use sqlx::postgres::PgPool;
 use tokio::net::TcpListener;
 
@@ -16,12 +16,15 @@ async fn create_app() -> Router {
     Router::new()
         .nest("/characters",  characters::router())
         .nest("/species", species::router())
+        .route("/ping", get(|| async { "Pong" }))
         .layer(Extension(state))
 }
 
 pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
     let app: Router = create_app().await;
-    let listener: TcpListener = TcpListener::bind("0.0.0.0:3000")
+    let port: String = std::env::var("PORT").unwrap_or_else(|_| "3000".into());
+    let addr = format!("0.0.0.0:{}", port);
+    let listener: TcpListener = TcpListener::bind(addr)
         .await?;
 
     axum::serve(listener, app)
