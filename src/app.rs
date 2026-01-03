@@ -6,7 +6,8 @@ use tokio::net::TcpListener;
 // Internal imports/USEs
 use crate::routes::{
     characters,
-    species
+    species,
+    weapons
 };
 use crate::conn::{AppState, create_pool};
 
@@ -16,6 +17,7 @@ async fn create_app() -> Router {
     Router::new()
         .nest("/characters",  characters::router())
         .nest("/species", species::router())
+        .nest("/weapons", weapons::router())
         .route("/ping", get(|| async { "Pong" }))
         .layer(Extension(state))
 }
